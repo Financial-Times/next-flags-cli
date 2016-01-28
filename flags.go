@@ -20,6 +20,10 @@ type Flag struct {
     State 		bool
 }
 
+const CLR_G = "\x1b[32;1m"
+const CLR_R = "\x1b[31;1m"
+const CLR_N = "\x1b[0m"
+
 // Sorting data in Go requires you to implement the sort.Interface. This
 // interface requires three simple methods: Len, Less, and Swap.
 
@@ -59,7 +63,11 @@ func main() {
 	sort.Sort(ByLength(flags.Flags))
 
 	for i := 0; i < len(flags.Flags); i++ {
-		fmt.Println(fmt.Sprintf(" %t	%s", flags.Flags[i].State, flags.Flags[i].Name))
+		if (flags.Flags[i].State == true) {
+			fmt.Println(fmt.Sprintf(" %s%t%s	%s", CLR_G, flags.Flags[i].State, CLR_N, flags.Flags[i].Name))
+	 	} else {
+			fmt.Println(fmt.Sprintf(" %s%t%s	%s", CLR_R, flags.Flags[i].State, CLR_N, flags.Flags[i].Name))
+		}
 	}
 
   }
